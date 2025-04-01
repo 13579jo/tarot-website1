@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const bgMusic = document.getElementById("bgMusic");
+  
+    // 第一次點擊畫面才播放
+    const enableMusic = () => {
+      bgMusic.play().catch(() => {});
+      document.removeEventListener("click", enableMusic);
+    };
+  
+    document.addEventListener("click", enableMusic);
+  });
+
+
+
+
+  
+  </script>
+  
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>神秘塔羅牌占卜</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Noto Serif TC', serif;
+      background: url('877096_0.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #f1e1e1f8;
+      text-align: center;
+      overflow-x: hidden;
+    }
+    h1 {
+      font-size: 22px;
+      margin: 20px 10px 10px;
+      text-shadow: 0 0 10px #f00909;
+    }
+    p {
+      font-size: 14px;
+      margin: 0 10px 15px;
+    }
+    select, button {
+      font-size: 16px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      margin: 10px 5px;
+    }
+    .locked {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .card-area {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 15px 10px;
+      gap: 10px;
+    }
+    .tarot-card {
+      width: 100px;
+      height: 160px;
+      background-image: url('backgroun33d.jpg');
+      background-size: cover;
+      border-radius: 10px;
+      position: relative;
+      animation: glow 2s infinite alternate;
+    }
+    .card-text {
+      position: absolute;
+      top: 10px;
+      left: 5px;
+      right: 5px;
+      background: rgba(0,0,0,0.6);
+      padding: 5px;
+      font-size: 12px;
+      border-radius: 6px;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 20px #fff; }
+      to { box-shadow: 0 0 4dvi #9145f5; }
+    }
+    .footer {
+      margin: 30px 0 40px;
+      padding: 10px;
+      background: rgba(0,0,0,0.5);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .footer a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #06C755;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+    }
+
+    .card-area {
+  gap: 15px; /* 加大牌與牌之間間距 */
+}
+
+.card-front {
+  width: 100px;
+  height: 160px;
+  background-image: url('background.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  position: relative;
+  animation: flyIn 0.9s ease, glowFront 1.8s infinite alternate, pulseZoom 2.4s infinite ease-in-out;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  z-index: 1;
+}
+
+.tarot-card {
+  width: 110px;
+  height: 176px;
+  background-image: url('backgroun33d.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  transform: scale(1.1); /* ✅ 背面圖放大效果 */
+  animation: shineCard 2.2s infinite alternate ease-in-out, pulseZoom 2.6s infinite ease-in-out;
+  box-shadow: 0 0 15px rgba(252, 250, 250, 0);
+  z-index: 1;
+}
+
+.tarot-card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, gold 0%, purple 70%);
+  opacity: 0.5;
+  animation: pulseCenter 2.2s infinite;
+  z-index: 1;
+}
+
+.card-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: #fffefe;
+  text-align: center;
+  font-family: 'Marcellus', serif;
+  font-size: 18px;
+  line-height: 1.6;
+  z-index: 2;
+  text-shadow: 0 0 0.6px rgba(19, 2, 2, 0.3);
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+box-shadow: 0 0 6px rgba(253, 3, 3, 0.4);
+}
+
+
+
+
+
+
+
+
+/* --- 動畫區 --- */
+@keyframes flyIn {
+  from { transform: translateY(-100px) scale(0.8); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes glowFront {
+  0% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4), 0 0 20px rgba(138, 43, 226, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.7), 0 0 40px rgba(186, 85, 211, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4), 0 0 30px rgba(138, 43, 226, 0.2);
+  }
+}
+
+@keyframes pulseZoom {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+@keyframes shineCard {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2), 0 0 5px rgba(186, 85, 211, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), 0 0 20px rgba(186, 85, 211, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.3), 0 0 10px rgba(138, 43, 226, 0.2);
+  }
+}
+
+@keyframes pulseCenter {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.6);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.4;
+  }
+}
+
+
+
+
+
+  </style>
+</head>
+<body>
+  
+
+  <audio id="bgMusic" src="skycastle.mp3" loop></audio>
+
+
+  <h1>歡迎來到英格麗身心靈工作室，現在進入神秘塔羅牌占卜</h1>
+  <p>請在心中默念你的問題，然後抽牌</p>
+
+  <div>
+    <select id="modeSelect">
+      <option value="">-- 請選擇占卜模式 --</option>
+      <option value="1">每日運勢（1張）</option>
+      <option value="5">感情占卜（5張）</option>
+      <option value="3past">心中秘密問題（3張）</option>
+      <option value="3">事業占卜（3張）</option>
+    </select>
+    <button id="drawBtn" class="locked">抽牌</button>
+  </div>
+
+  <div class="card-area" id="cardArea"></div>
+
+  <div class="footer">
+    以上僅供參考，並不代表任何實際建議或承諾。<br>
+    如需詳細了解，歡迎洽詢：<br>
+    <a href="https://line.me/ti/p/yXlMzsT9U7" target="_blank">英格麗老師</a>
+  </div>
+  <script>
+    // ✅ 78張塔羅牌資料（已完整收錄）
+    const tarotCards = [
+      { name: "愚人", upright: "冒險 自由 新開始", reversed: "魯莽 不切實際 粗心" },
+      { name: "魔術師", upright: "能力 創造 自信", reversed: "操縱 欺騙 缺乏自信" },
+      { name: "女祭司", upright: "直覺 神秘 智慧", reversed: "隱瞞 猶豫 表面化" },
+      { name: "女皇", upright: "豐盛 母愛 成長", reversed: "依賴 缺乏成長 過度控制" },
+      { name: "皇帝", upright: "權威 穩定 領導力", reversed: "控制欲 強勢 缺乏紀律" },
+      { name: "教皇", upright: "傳統 教導 指引", reversed: "叛逆 僵化 缺乏靈性" },
+      { name: "戀人", upright: "愛情 合作 抉擇", reversed: "分裂 衝突 猶豫不決" },
+      { name: "戰車", upright: "勝利 自律 決心", reversed: "失控 缺乏方向 失敗" },
+      { name: "力量", upright: "勇氣 自信 意志力", reversed: "軟弱 缺乏信心 不耐煩" },
+      { name: "隱士", upright: "內省 獨處 智慧", reversed: "孤立 逃避 封閉" },
+      { name: "命運之輪", upright: "轉變 幸運 循環", reversed: "厄運 停滯 抗拒改變" },
+      { name: "正義", upright: "公平 真理 平衡", reversed: "不公正 偏見 失衡" },
+      { name: "吊人", upright: "犧牲 放手 新觀點", reversed: "固執 抗拒 停滯" },
+      { name: "死神", upright: "結束 轉變 重生", reversed: "抗拒改變 停滯 恐懼" },
+      { name: "節制", upright: "平衡 和諧 耐心", reversed: "失衡 過度 缺乏耐心" },
+      { name: "惡魔", upright: "誘惑 束縛 沉溺", reversed: "解脫 覺醒 克服誘惑" },
+      { name: "塔", upright: "崩壞 意外 劇變", reversed: "避免災難 抗拒改變 延遲" },
+      { name: "星星", upright: "希望 靈感 治癒", reversed: "絕望 缺乏信心 消極" },
+      { name: "月亮", upright: "直覺 幻覺 恐懼", reversed: "真相揭露 消除恐懼 清晰" },
+      { name: "太陽", upright: "快樂 成功 活力", reversed: "消極 悲觀 失望" },
+      { name: "審判", upright: "覺醒 更新 重生", reversed: "猶豫 懷疑 拒絕改變" },
+      { name: "世界", upright: "完成 成就 完美", reversed: "未完成 延遲 缺乏完成感" },
+      { name: "權杖一", upright: "創造 熱情 新機會", reversed: "延遲 缺乏熱情 阻礙" },
+      { name: "權杖二", upright: "計畫 決策 未來展望", reversed: "缺乏計畫 猶豫不決 限制" },
+      { name: "權杖三", upright: "擴展 成長 未來願景", reversed: "延遲 停滯 缺乏視野" },
+      { name: "權杖四", upright: "慶祝 和諧 穩定", reversed: "不穩定 衝突 缺乏安全感" },
+      { name: "權杖五", upright: "競爭 衝突 挑戰", reversed: "和解 避免衝突 合作" },
+      { name: "權杖六", upright: "勝利 榮譽 公開認可", reversed: "失敗 傲慢 缺乏信心" },
+      { name: "權杖七", upright: "防衛 挑戰 堅持", reversed: "放棄 妥協 弱勢" },
+      { name: "權杖八", upright: "快速行動 消息 動力", reversed: "延遲 停滯 阻礙" },
+      { name: "權杖九", upright: "毅力 防禦 堅持到底", reversed: "放棄 疲憊 猶豫" },
+      { name: "權杖十", upright: "負擔 壓力 責任過重", reversed: "放下 解脫 減輕壓力" },
+      { name: "權杖侍者", upright: "熱情 新訊息 新機會", reversed: "衝動 缺乏方向 不成熟" },
+      { name: "權杖騎士", upright: "行動力 熱情 冒險", reversed: "魯莽 衝動 不可靠" },
+      { name: "權杖皇后", upright: "自信 熱情 領導力", reversed: "自負 控制欲 急躁" },
+      { name: "權杖國王", upright: "領導權 威嚴 創造力", reversed: "獨斷傲慢 專橫 脾氣暴躁" },
+      { name: "杯一", upright: "情感 新關係 喜悅", reversed: "失望 情感受阻 冷漠" },
+      { name: "杯二", upright: "聯結 和諧 愛情", reversed: "分離 不和諧 誤解" },
+      { name: "杯三", upright: "歡樂 慶祝 友誼", reversed: "過度放縱 衝突 孤立" },
+      { name: "杯四", upright: "沉思 無視 懶散", reversed: "覺醒 新動力 接受機會" },
+      { name: "杯五", upright: "失落 悲傷 後悔", reversed: "療癒 接受 希望重現" },
+      { name: "杯六", upright: "回憶 懷舊 純真", reversed: "放不下過去 停滯 懷舊成癮" },
+      { name: "杯七", upright: "幻想 選擇 困惑", reversed: "清晰 實際 明確決定" },
+      { name: "杯八", upright: "離開 放下 追尋意義", reversed: "猶豫 害怕離開 停滯不前" },
+      { name: "杯九", upright: "滿足 幸福 願望實現", reversed: "不滿足 貪婪 缺乏幸福感" },
+      { name: "杯十", upright: "家庭和諧 幸福 圓滿", reversed: "家庭不和諧 破裂 不滿足" },
+      { name: "杯侍者", upright: "新情感 驚喜 溫柔", reversed: "情緒不穩 幻想 不成熟" },
+      { name: "杯騎士", upright: "浪漫 愛情 表白", reversed: "虛情假意 不可靠 情緒波動" },
+      { name: "杯皇后", upright: "同情 心靈 敏感", reversed: "情緒化 依賴 消極" },
+      { name: "杯國王", upright: "成熟 理解 情緒穩定", reversed: "情緒操控 冷漠 控制" },
+      { name: "寶劍一", upright: "清晰 智慧 新想法", reversed: "混亂 誤導 缺乏方向" },
+      { name: "寶劍二", upright: "僵局 猶豫 抉擇", reversed: "決定揭曉 真相曝光 混亂" },
+      { name: "寶劍三", upright: "心痛 傷害 背叛", reversed: "療癒 原諒 釋放痛苦" },
+      { name: "寶劍四", upright: "休息 療癒 恢復", reversed: "焦慮 疲勞 缺乏休息" },
+      { name: "寶劍五", upright: "衝突 競爭 爭吵", reversed: "和解 放下衝突 妥協" },
+      { name: "寶劍六", upright: "轉變 放下 前進", reversed: "困境 停滯 無法放下" },
+      { name: "寶劍七", upright: "欺騙 狡猾 隱藏", reversed: "坦承 真相揭露 內疚" },
+      { name: "寶劍八", upright: "限制 束縛 困惑", reversed: "解脫 釋放 看清真相" },
+      { name: "寶劍九", upright: "焦慮 恐懼 惡夢", reversed: "希望恢復 放下恐懼 痛苦減輕" },
+      { name: "寶劍十", upright: "結束 崩潰 痛苦", reversed: "恢復 重生 從痛苦中覺醒" },
+      { name: "寶劍侍者", upright: "好奇 新訊息 警覺", reversed: "謠言 誤會 衝動" },
+      { name: "寶劍騎士", upright: "迅速 決心 衝突", reversed: "魯莽 衝動 暴躁" },
+      { name: "寶劍皇后", upright: "智慧 誠實 獨立", reversed: "苛刻 尖銳 冷酷" },
+      { name: "寶劍國王", upright: "理性 權威 公正", reversed: "操控 冷漠 專制" },
+      { name: "錢幣一", upright: "財富 新機會 穩定", reversed: "錯失機會 財務困難 不穩定" },
+      { name: "錢幣二", upright: "平衡 適應 靈活", reversed: "失衡 負擔 無法應付" },
+      { name: "錢幣三", upright: "合作 團隊 技能提升", reversed: "團隊不和 缺乏合作 停滯不前" },
+      { name: "錢幣四", upright: "守財 穩定 安全感", reversed: "貪婪 過度保守 缺乏安全感" },
+      { name: "錢幣五", upright: "貧困 困難 孤立", reversed: "恢復 改善 幫助來臨" },
+      { name: "錢幣六", upright: "慷慨 給予 分享", reversed: "自私 債務 不公平" },
+      { name: "錢幣七", upright: "耐心 等待 收穫", reversed: "不耐煩 缺乏成效 白費努力" },
+      { name: "錢幣八", upright: "勤奮 專注 努力工作", reversed: "缺乏專注 技術不足 浪費精力" },
+      { name: "錢幣九", upright: "獨立 享受 財富", reversed: "過度依賴 孤獨 財務困難" },
+      { name: "錢幣十", upright: "家庭 財富 穩定", reversed: "家庭紛爭 財務問題 不安全感" },
+      { name: "錢幣侍者", upright: "新機會 努力 勤奮", reversed: "錯失機會 懶散 缺乏專注" },
+      { name: "錢幣騎士", upright: "踏實 穩定 勤勞", reversed: "停滯 固執 缺乏進展" },
+      { name: "錢幣皇后", upright: "務實 慷慨 豐裕", reversed: "物質主義 過度控制 缺乏安全感" },
+      { name: "錢幣國王", upright: "財富 領導力 成就", reversed: "貪婪 控制欲 缺乏誠信" }
+    ];
+    </script>
+    <script>
+      const drawBtn = document.getElementById("drawBtn");
+      const modeSelect = document.getElementById("modeSelect");
+      const cardArea = document.getElementById("cardArea");
+      let hasDrawn = false;
+      
+      // 選擇模式 → 顯示洗牌牌卡 + 解鎖抽牌按鈕
+      modeSelect.addEventListener("change", () => {
+        hasDrawn = false;
+        drawBtn.classList.remove("locked");
+        cardArea.innerHTML = "";
+      
+        for (let i = 0; i < 5; i++) {
+          const card = document.createElement("div");
+          card.className = "tarot-card";
+          cardArea.appendChild(card);
+        }
+      });
+      
+
+      for (let i = 0; i < 5; i++) {
+  const card = document.createElement("div");
+  card.className = "card-front"; // 改為正面圖＋動畫
+  cardArea.appendChild(card);
+}
+
+
+
+
+modeSelect.addEventListener("change", () => {
+  hasDrawn = false;
+  drawBtn.classList.remove("locked");
+  cardArea.innerHTML = "";
+
+  for (let i = 0; i < 5; i++) {
+    const card = document.createElement("div");
+    card.className = "card-front"; // ✅ 改為正面圖＋閃爍動畫
+    cardArea.appendChild(card);
+  }
+});
+
+
+
+      
+
+
+
+
+
+      // 抽牌按鈕邏輯
+      drawBtn.addEventListener("click", () => {
+        if (hasDrawn || drawBtn.classList.contains("locked")) return;
+      
+        const mode = modeSelect.value;
+        if (!mode) return;
+      
+        cardArea.innerHTML = ""; // 清空洗牌動畫
+        let num = parseInt(mode);
+        let titles = [];
+      
+        if (mode === "3past") {
+          num = 3;
+          titles = ["過去", "現在", "未來"];
+        }
+      
+        const drawn = [];
+        while (drawn.length < num) {
+          const i = Math.floor(Math.random() * tarotCards.length);
+          if (!drawn.includes(i)) drawn.push(i);
+        }
+      
+        drawn.forEach((i, idx) => {
+          const card = tarotCards[i];
+          const isUpright = Math.random() > 0.5;
+      
+          const cardDiv = document.createElement("div");
+          cardDiv.className = "tarot-card";
+      
+          const textDiv = document.createElement("div");
+          textDiv.className = "card-text";
+          const title = titles[idx] || card.name;
+      
+          textDiv.innerHTML = `
+            <strong>${title}</strong><br>
+            ${isUpright ? card.upright : card.reversed}<br>
+            <em>${isUpright ? "正位" : "逆位"}</em>
+          `;
+      
+          cardDiv.appendChild(textDiv);
+          cardArea.appendChild(cardDiv);
+        });
+      
+        drawBtn.classList.add("locked");
+        hasDrawn = true;
+      });
+      </script>
+      </body>
+      </html>
+      
