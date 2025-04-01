@@ -10,21 +10,31 @@
 
 
 
+<audio id="bgMusic" src="skycastle.mp3" autoplay loop></audio>
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const bgMusic = document.getElementById("bgMusic");
-  
-    // 第一次點擊畫面才播放
+    bgMusic.volume = 0.3; // 音量設定為 30%
+
     const enableMusic = () => {
       bgMusic.play().catch(() => {});
       document.removeEventListener("click", enableMusic);
     };
-  
+
+    // 點擊一次後才會啟動音樂（符合瀏覽器規範）
     document.addEventListener("click", enableMusic);
+
+    // 關閉網頁時自動停止音樂
+    window.addEventListener("beforeunload", () => {
+      bgMusic.pause();
+      bgMusic.currentTime = 0;
+      
+    });
   });
+  
 
-
-
+</script>
 
 
 
@@ -44,7 +54,6 @@
   
 
 <head>
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>神秘塔羅牌占卜</title>
   <style>
@@ -281,27 +290,60 @@ box-shadow: 0 0 6px rgba(253, 3, 3, 0.4);
 </head>
 <body>
 
+  <audio id="bgMusic" src="skycastle.mp3" autoplay loop></audio>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const bgMusic = document.getElementById("bgMusic");
+      bgMusic.volume = 0.2;
+  
+      const enableMusic = () => {
+        bgMusic.play().catch(() => {});
+        document.removeEventListener("click", enableMusic);
+      };
+  
+      document.addEventListener("click", enableMusic, { once: true });
+  
+      // 當使用者離開頁面、切換頁籤或關閉網頁時，自動停止音樂
+      const stopMusic = () => {
+        if (!document.hidden) return;
+        bgMusic.pause();
+        bgMusic.currentTime = 0;
+      };
+  
+      document.addEventListener("visibilitychange", stopMusic);
+      window.addEventListener("beforeunload", stopMusic);
+      window.addEventListener("pagehide", stopMusic);
+    });
+  </script>
 
 
   <audio id="bgMusic" src="skycastle.mp3" autoplay loop></audio>
 
-  <script>
-    const music = document.getElementById("bgMusic");
-  
-    // 嘗試自動播放（部分瀏覽器需要點一下才會播放）
-    document.addEventListener('click', () => {
-      if (music.paused) {
-        music.play().catch(() => {});
-      }
-    }, { once: true });
-  
-    // 關閉頁面時停止播放
-    window.addEventListener("beforeunload", () => {
-      music.pause();
-      music.currentTime = 0;
-    });
-  </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const bgMusic = document.getElementById("bgMusic");
+    bgMusic.volume = 0.2;
+
+    const enableMusic = () => {
+      bgMusic.play().catch(() => {});
+      document.removeEventListener("click", enableMusic);
+    };
+
+    document.addEventListener("click", enableMusic, { once: true });
+
+    // 當使用者離開頁面、切換頁籤或關閉網頁時，自動停止音樂
+    const stopMusic = () => {
+      if (!document.hidden) return;
+      bgMusic.pause();
+      bgMusic.currentTime = 0;
+    };
+
+    document.addEventListener("visibilitychange", stopMusic);
+    window.addEventListener("beforeunload", stopMusic);
+    window.addEventListener("pagehide", stopMusic);
+  });
+</script>
 
 
 
