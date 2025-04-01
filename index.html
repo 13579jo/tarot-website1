@@ -1,37 +1,65 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>神秘塔羅牌占卜</title>
 
-<!-- 頁面預覽用的封面圖設定 -->
-<meta property="og:title" content="神秘塔羅牌占卜" />
-<meta property="og:description" content="請在心中默念你的問題，讓神秘塔羅牌為你指引。" />
-<meta property="og:image" content="https://13579jo.github.io/tarot-website1/tarot_cover.jpg" />
-<meta property="og:url" content="https://13579jo.github.io/tarot-website1/" />
-<meta name="twitter:card" content="summary_large_image" />
+  <!-- ✅ 分享縮圖設定（LINE、FB 都能抓到） -->
+  <meta property="og:title" content="神秘塔羅牌占卜" />
+  <meta property="og:description" content="請在心中默念你的問題，讓神秘塔羅牌為你指引方向。" />
+  <meta property="og:image" content="https://13579jo.github.io/tarot-website1/tarot_cover.jpg" />
+  <meta property="og:url" content="https://13579jo.github.io/tarot-website1/" />
+  <meta name="twitter:card" content="summary_large_image" />
+</head>
+<body>
 
+  <!-- ✅ 背景音樂播放器 -->
+  <audio id="bgMusic" src="skycastle.mp3" preload="auto"></audio>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const bgMusic = document.getElementById("bgMusic");
+      bgMusic.volume = 0.2; // 音量稍微降低
+      let isLooping = false;
 
-<audio id="bgMusic" src="skycastle.mp3" autoplay loop></audio>
+      function startMusicLoop() {
+        if (!isLooping) {
+          isLooping = true;
+          bgMusic.play().catch(() => {});
+          bgMusic.addEventListener("ended", () => {
+            if (isLooping) {
+              bgMusic.currentTime = 0;
+              bgMusic.play().catch(() => {});
+            }
+          });
+        }
+      }
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const bgMusic = document.getElementById("bgMusic");
-    bgMusic.volume = 0.3; // 音量設定為 30%
+      function stopMusic() {
+        if (isLooping) {
+          isLooping = false;
+          bgMusic.pause();
+          bgMusic.currentTime = 0;
+        }
+      }
 
-    const enableMusic = () => {
-      bgMusic.play().catch(() => {});
-      document.removeEventListener("click", enableMusic);
-    };
+      // 使用者點一下後才播放（符合手機瀏覽器規定）
+      document.addEventListener("click", startMusicLoop, { once: true });
 
-    // 點擊一次後才會啟動音樂（符合瀏覽器規範）
-    document.addEventListener("click", enableMusic);
-
-    // 關閉網頁時自動停止音樂
-    window.addEventListener("beforeunload", () => {
-      bgMusic.pause();
-      bgMusic.currentTime = 0;
-      
+      // 使用者切分頁、離開、關閉畫面就停止音樂
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) stopMusic();
+      });
+      window.addEventListener("pagehide", stopMusic);
+      window.addEventListener("beforeunload", stopMusic);
     });
-  });
+  </script>
+
+</body>
+</html>
+
+
   
 
 </script>
@@ -354,8 +382,7 @@ box-shadow: 0 0 6px rgba(253, 3, 3, 0.4);
 
   
 
-  <audio id="bgMusic" src="skycastle.mp3" loop></audio>
-
+  
 
   <h1>歡迎來到英格麗身心靈工作室，現在進入神秘塔羅牌占卜</h1>
   <p>請在心中默念你的問題，然後抽牌</p>
