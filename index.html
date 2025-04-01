@@ -257,8 +257,59 @@ box-shadow: 0 0 6px rgba(253, 3, 3, 0.4);
 
 
   </style>
+
+
+<!-- 分享時顯示縮圖與描述 -->
+<meta property="og:title" content="神秘塔羅牌占卜" />
+<meta property="og:description" content="請在心中默念問題，讓塔羅為你揭示答案。" />
+<meta property="og:image" content="https://13579jo.github.io/tarot-website1/tarot_cover.jpg" />
+<meta property="og:url" content="https://13579jo.github.io/tarot-website1/" />
+<meta name="twitter:card" content="summary_large_image" />
+
+
+
+
+
+
+
+
+
+
+
+
+
 </head>
 <body>
+
+
+
+
+  <audio id="bgMusic" src="skycastle.mp3" autoplay loop></audio>
+
+  <script>
+    const music = document.getElementById("bgMusic");
+  
+    // 嘗試自動播放（部分瀏覽器需要點一下才會播放）
+    document.addEventListener('click', () => {
+      if (music.paused) {
+        music.play().catch(() => {});
+      }
+    }, { once: true });
+  
+    // 關閉頁面時停止播放
+    window.addEventListener("beforeunload", () => {
+      music.pause();
+      music.currentTime = 0;
+    });
+  </script>
+
+
+
+
+
+
+
+
   
 
   <audio id="bgMusic" src="skycastle.mp3" loop></audio>
