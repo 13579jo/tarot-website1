@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 
+<!-- 頁面預覽用的封面圖設定 -->
+<meta property="og:title" content="神秘塔羅牌占卜" />
+<meta property="og:description" content="請在心中默念你的問題，讓神秘塔羅牌為你指引。" />
+<meta property="og:image" content="https://13579jo.github.io/tarot-website1/tarot_cover.jpg" />
+<meta property="og:url" content="https://13579jo.github.io/tarot-website1/" />
+<meta name="twitter:card" content="summary_large_image" />
+
+
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const bgMusic = document.getElementById("bgMusic");
@@ -17,6 +26,19 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+  
   
   </script>
   
@@ -443,5 +465,45 @@ modeSelect.addEventListener("change", () => {
       });
       </script>
       </body>
+
+
+      <audio id="bgMusic" src="skycastle.mp3" loop></audio>
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const music = document.getElementById("bgMusic");
+      
+          // 啟動互動才播放（符合 Chrome 規定）
+          const enableMusic = () => {
+            music.play().catch(() => {});
+            document.removeEventListener("click", enableMusic);
+          };
+          document.addEventListener("click", enableMusic);
+      
+          // 網頁關閉時自動停止
+          window.addEventListener("beforeunload", () => {
+            music.pause();
+            music.currentTime = 0;
+          });
+        });
+      </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </html>
+
+
+
+
+
       
